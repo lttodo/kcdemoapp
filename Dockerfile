@@ -6,9 +6,9 @@
 FROM node:10.15.3 AS BUILDER
 
 # make a dir, add project and set as working dir (use .dockerignore)
-RUN mkdir /kcdemoapp
-COPY . /kcdemoapp
-WORKDIR /kcdemoapp
+RUN mkdir /kcgitdemo
+COPY . /kcgitdemo
+WORKDIR /kcgitdemo
 
 # install angular cli -> gives us the ng command
 RUN npm install @angular/cli -g
@@ -22,4 +22,4 @@ RUN ng build --prod
 FROM nginx:1.15.8-alpine
 
 # add build artefact from BUILDER to the web dir
-COPY --from=BUILDER /kcdemoapp/dist/KcDemoApp/ /usr/share/nginx/html
+COPY --from=BUILDER /kcgitdemo/dist/KcGitDemo/ /usr/share/nginx/html
